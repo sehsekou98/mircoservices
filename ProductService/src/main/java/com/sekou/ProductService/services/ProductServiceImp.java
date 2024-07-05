@@ -1,6 +1,7 @@
 package com.sekou.ProductService.services;
 
 import com.sekou.ProductService.entity.Product;
+import com.sekou.ProductService.exception.ProductServiceCustomException;
 import com.sekou.ProductService.model.ProductRequest;
 import com.sekou.ProductService.model.ProductResponse;
 import com.sekou.ProductService.repository.ProductRepository;
@@ -39,7 +40,7 @@ public class ProductServiceImp implements ProductService{
         log.info("Get the product for productId: {}", productId);
 
         Product product = productRepository.findById(productId)
-                .orElseThrow(() -> new RuntimeException("Product not found with given Id: " + productId));
+                .orElseThrow(() -> new ProductServiceCustomException("Product not found with given Id", "PRODUCT_NOT_FOUND"));
 
          ProductResponse productResponse = new ProductResponse();
         copyProperties(product, productResponse);
