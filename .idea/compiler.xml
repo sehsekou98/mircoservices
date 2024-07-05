@@ -9,12 +9,14 @@
         <outputRelativeToContentRoot value="true" />
         <module name="ProductService" />
         <module name="service-registry" />
+        <module name="order-service" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="ProductService" options="-parameters" />
+      <module name="order-service" options="-parameters" />
       <module name="service-registry" options="-parameters" />
     </option>
   </component>

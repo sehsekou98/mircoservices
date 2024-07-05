@@ -6,6 +6,7 @@ import com.sekou.ProductService.model.ProductRequest;
 import com.sekou.ProductService.model.ProductResponse;
 import com.sekou.ProductService.repository.ProductRepository;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import static org.springframework.beans.BeanUtils.*;
@@ -15,6 +16,8 @@ import static org.springframework.beans.BeanUtils.*;
 public class ProductServiceImp implements ProductService{
 
 
+
+    @Autowired
     private  ProductRepository productRepository;
 
     // Adding products to chart
