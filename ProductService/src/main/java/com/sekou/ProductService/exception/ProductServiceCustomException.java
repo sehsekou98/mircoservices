@@ -1,8 +1,10 @@
 package com.sekou.ProductService.exception;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 
+@EqualsAndHashCode(callSuper = false)
 @Data
 public class ProductServiceCustomException extends RuntimeException{
 

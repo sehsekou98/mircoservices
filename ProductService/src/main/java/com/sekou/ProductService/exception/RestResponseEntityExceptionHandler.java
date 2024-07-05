@@ -20,9 +20,5 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
               .build(), HttpStatus.NOT_FOUND);
 
 
-
-
-
-
     }
 }
