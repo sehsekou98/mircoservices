@@ -48,4 +48,9 @@ public class ProductServiceImp implements ProductService{
         copyProperties(product, productResponse);
         return productResponse;
     }
+
+    @Override
+    public void reduceQuantity(Long productId, long quantity) {
+
+    }
 }
