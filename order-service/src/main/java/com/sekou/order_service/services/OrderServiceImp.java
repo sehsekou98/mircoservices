@@ -2,9 +2,11 @@ package com.sekou.order_service.services;
 
 
 import com.sekou.order_service.entity.Order;
+import com.sekou.order_service.exception.CustomException;
 import com.sekou.order_service.external.client.PaymentService;
 import com.sekou.order_service.external.client.ProductService;
 import com.sekou.order_service.model.OrderRequest;
+import com.sekou.order_service.model.OrderResponse;
 import com.sekou.order_service.repository.OrderRepository;
 import com.sekou.order_service.request.PaymentRequest;
 import lombok.extern.log4j.Log4j2;
@@ -68,5 +70,27 @@ public class OrderServiceImp implements OrderService{
 
          log.info("Order placed successfully with order Id: {}", order);
         return order.getId();
+    }
+
+
+
+    @Override
+    public OrderResponse getOrderDetails(long orderId) {
+        log.info("Get Order details for order Id : {}", orderId);
+
+
+        Order order
+                = orderRepository.findById(orderId)
+                .orElseThrow( () -> new CustomException("Order not found for the order Id:" + orderId,
+                        "NOT_FOUND",
+                        404));
+OrderResponse orderResponse =
+   OrderResponse.builder()
+           .orderId(order.getId())
+           .orderStatus(order.getOrderStatus())
+           .amount(order.getAmount())
+           .orderDate(order.getOrderDate())
+           .build();
+        return orderResponse;
     }
 }
