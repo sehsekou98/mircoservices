@@ -2,6 +2,7 @@ package com.example.paymentService.controller;
 
 
 import com.example.paymentService.model.PaymentRequest;
+import com.example.paymentService.model.PaymentResponse;
 import com.example.paymentService.service.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,6 +21,12 @@ public class PaymentController {
         return  new ResponseEntity<>(
                 paymentService.doPayment(paymentRequest),
                 HttpStatus.OK);
-
+    }
+    @GetMapping("/order/{orderId}")
+    public ResponseEntity<PaymentResponse> getPaymentDetailsByOrderId(@PathVariable Long orderId) {
+        return new ResponseEntity<>(
+                paymentService.getPaymentDetailsByOrderId(orderId),
+                HttpStatus.OK
+        );
     }
 }

@@ -7,6 +7,8 @@ import com.sekou.order_service.external.client.PaymentService;
 import com.sekou.order_service.external.client.ProductService;
 import com.sekou.order_service.model.OrderRequest;
 import com.sekou.order_service.model.OrderResponse;
+import com.sekou.order_service.model.PaymentResponse;
+import com.sekou.order_service.model.ProductResponse;
 import com.sekou.order_service.repository.OrderRepository;
 import com.sekou.order_service.request.PaymentRequest;
 import lombok.extern.log4j.Log4j2;
@@ -96,6 +98,12 @@ public class OrderServiceImp implements OrderService{
                 ProductResponse.class
         );
 
+        log.info("Getting payment information from the payment service...");
+        PaymentResponse paymentResponse = restTemplate.getForObject(
+                "http://PAYMENT-SERVICE/payment/order/" + order.getId(),
+                PaymentResponse.class
+        );
+
         assert productResponse != null;
         OrderResponse.ProductDetails productDetails
                 = OrderResponse.ProductDetails.builder()
@@ -103,6 +111,15 @@ public class OrderServiceImp implements OrderService{
                 .productId(productResponse.getProductId())
                 .quantity(productResponse.getQuantity())
                 .price(productResponse.getPrice())
+                .build();
+
+        assert paymentResponse != null;
+        OrderResponse.PaymentDetails paymentDetails
+                = OrderResponse.PaymentDetails.builder()
+                .paymentId(paymentResponse.getPaymentId())
+                .paymentStatus(paymentResponse.getStatus())
+                .paymentDate(paymentResponse.getPaymentDate())
+                .paymentMode(paymentResponse.getPaymentMode())
                 .build();
 
 
@@ -113,6 +130,7 @@ OrderResponse orderResponse =
            .amount(order.getAmount())
            .orderDate(order.getOrderDate())
            .productDetails(productDetails)
+           .paymentDetails(paymentDetails)
            .build();
         return orderResponse;
     }

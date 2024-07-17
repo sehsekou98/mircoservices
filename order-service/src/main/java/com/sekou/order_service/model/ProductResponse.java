@@ -1,4 +1,4 @@
-package com.sekou.order_service.services;
+package com.sekou.order_service.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
